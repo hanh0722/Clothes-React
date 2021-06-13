@@ -85,6 +85,18 @@ nav{
         a{
             text-decoration: none;
             color: black;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0px 20px;
+            transition: all .3s;
+            &:hover{
+                background: $orange;
+                color: white;
+            }
+            &:hover svg{
+                color: white;
+            }
         }
     }
     svg{
@@ -95,6 +107,7 @@ nav{
         color: gray;
         font-size: .8rem !important;
         cursor: pointer;
+        transition: all .3s;
     }
 }
 .button-click-close{
@@ -122,6 +135,10 @@ nav{
     height: 0px;
     transition: all .45s;
     opacity: 0;
+    a{
+        height: auto !important;
+        padding: 0 !important;
+    }
     &::before{
         position: absolute;
         top: -20px;
@@ -133,6 +150,7 @@ nav{
         list-style: none;
         padding: 0px 20px;
         transition: all .3s;
+        width: 100%;
         &:hover{
             background: $orange;
             color: white;
@@ -144,10 +162,6 @@ nav{
 }
 .transition-navbar{
     transform: translateX(0%) !important;
-    li{
-        animation: animated;
-
-    }
 }
 .class-toggle{
     visibility: visible !important;
@@ -231,6 +245,9 @@ nav{
             transform: scaleY(1);
         }
     }
+}
+.none-item{
+    display: none;
 }
 .container{
     display: flex;
@@ -556,9 +573,6 @@ nav{
     opacity: 1;
     transform: translateY(0);
 }
-.nav-list > li:hover{
-    background: $orange;
-}
 .banner{
     display: flex;
     justify-content: space-between;
@@ -808,6 +822,16 @@ nav{
 .container-latest-products{
     padding: 8%;
 }
+.notice-filled{
+    text-align: center;
+    margin-top: 30px;
+    display: none;
+    color: red;
+    font-weight: bold;
+}
+.error-filled{
+    display: block;
+}
 .container-products{
     display: flex;
     flex-wrap: wrap;
@@ -823,7 +847,7 @@ nav{
         }
         img{
             width: 100%;
-            height: 280px;
+            height: auto;
         }
         .name-product-new{
             text-align: center;
@@ -1420,13 +1444,6 @@ footer{
         margin-top: 15px;
     }
 }
-.nav-list > li{
-    transition: all .3s;
-    padding: 10px 20px;
-    &:hover{
-        color: $orange;    
-    }
-}
 .blog-component{
     display: flex;
     justify-content: space-between;
@@ -1714,12 +1731,65 @@ footer{
     a{
         text-decoration: none;
         color: white;
-        margin-left: 10px;
         text-transform: capitalize;
     }
     &:hover{
         border-color: $orange;
         cursor: pointer;
+    }
+}
+.remove-border-signin{
+    border: none !important;
+}
+
+.user-load{
+    position: relative;
+    justify-content: center;
+    .font-awesome-user{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: $orange;
+        font-size: 1.2rem;
+    }
+    .user{
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        width: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-transform: capitalize;
+        background: white;
+        transition: all .5s;
+        color: black;
+        padding: 10px;
+        z-index: 3;
+        font-size: 14px;
+        line-height: 30px;
+        border-radius: .3rem;
+        &::before{
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            
+            border-bottom: 10px solid white;
+        }
+        a{
+            color: black;
+        }
+    }
+    .show-user{
+        display: block;
     }
 }
 @media screen and (max-width: 1200px){
@@ -1838,6 +1908,15 @@ footer{
             }
         }
     }
+    .user-load{
+        .font-awesome-user{
+            position: relative;
+            right: 10px;
+        }
+        .user{
+            left: calc(50% - 10px);
+        }
+    }
 }
 @media screen  and (max-width: 850px){
     .logo{
@@ -1880,9 +1959,6 @@ footer{
                 }
             }
         }
-    }
-    .container-products .products-new img {
-        height: 250px;
     }
 }
 @media screen and (max-width: 772px){
@@ -1939,12 +2015,21 @@ footer{
         overflow-y: scroll;
         overflow-x: hidden;
         li{
-            
-            font-size: 1.2rem;
             height: auto;
+            padding: 15px 0px;
+            opacity: 0;
         }
         a{
             color: white !important;
+            height: auto !important;
+            &:hover{
+                background: black !important;
+
+            }
+            padding: 0 !important;
+        }
+        .title-navbar{
+            padding-bottom: 15px !important;
         }
         .list-inside{
             position: static;
@@ -1954,12 +2039,7 @@ footer{
             transition: all .5s;
             opacity: 0;
             padding: 0;
-            li{
-                padding-bottom: 10px !important;
-                &:first-child{
-                    padding-top: 10px !important;
-                }
-            }
+            line-height: normal;
             &::before{
                 display: none;
             }
@@ -1989,13 +2069,8 @@ footer{
         background: black;
         padding: 10px 0px;
         li{
-            padding-top: 0 !important;
-            padding-left: 0 !important;
             &:hover{
                 background: black;
-            }
-            &:last-child{
-                padding-bottom: 10px !important;
             }
         }
     }
@@ -2174,6 +2249,16 @@ footer{
     .name-product-new{
         font-size: 14px;
     }
+    @keyframes dropIn {
+       20%{
+           opacity: 0;
+           transform: translateX(-20%);
+       } 
+       30%,100%{
+           opacity: 1;
+           transform: translateX(0);
+       }
+    }
 }
 @media screen and (max-width: 700px){
     .container-feedback
@@ -2182,9 +2267,6 @@ footer{
         .box-feedback{
             width: 95%;
         }
-    }
-    .container-products .products-new img {
-        height: 200px;
     }
 }
 @media screen and (max-width: 576px) {
@@ -2295,9 +2377,6 @@ footer{
             width: 100%;
             padding: 20px 0px;
         }
-    }
-    .container-products .products-new img {
-        height: auto;
     }
     .container-bought{
         padding: 2%;

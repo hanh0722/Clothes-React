@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ProductsLatest from './latestproduct';
 import AOS from 'aos';
-AOS.init({
-    offset: 200,
-    duration: 1000,
-    delay: 200
-})
 const ListProductAll = ({onFilter, onData}) =>{
+
+    useEffect(() => {
+        AOS.init({
+            offset: 200,
+            duration: 1000,
+            delay: 200
+        })
+    }, [])
+
     const data = onData.map((items, i) =>{
         return <ProductsLatest key={i} url={`${process.env.PUBLIC_URL}/img/${items.img}`} nameProduct={items.name} oldPrice={items.sale} newPrice={items.price}/>
     })
+    
     return(
         <div data-aos-offset='200' data-aos='zoom-in' className='container-all-latest'>
             <div className='container-latest-products'>

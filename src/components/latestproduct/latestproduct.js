@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+
 class ProductsLatest extends React.Component{
     constructor(props){
         super(props);
@@ -7,8 +8,6 @@ class ProductsLatest extends React.Component{
             name: ''
         }
     }
-
-
     onChangeSession = () =>{
         sessionStorage.setItem('informationProduct', this.props.nameProduct);
         this.setState({name: this.props.nameProduct});

@@ -15,16 +15,15 @@ const filterArray = (condition, array) =>{
     return Result;
 }
 class Main extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
           products: [],
           mainArray: [],
-          starting: [],
         }
     }
     componentDidMount(){
-        fetch('http://localhost:3001/products').then(response => response.json())
+        fetch('http://localhost:3001/products/latest').then(response => response.json())
         .then(data =>{
             this.setState({
                 mainArray: data,
@@ -33,34 +32,34 @@ class Main extends React.Component{
         }).catch(err => console.log(err));
     }
     onFilter = (result) =>{
-    if(result === 'all'){
-        this.setState({products: this.state.mainArray});
+        if(result === 'all'){
+            this.setState({products: this.state.mainArray});
+        }
+        else if(result === 'croptop'){
+            const newData = filterArray('crop top', this.state.mainArray);
+            this.setState({products: newData})
+        }
+        else if(result === 'dress'){
+            const newData = filterArray('dress', this.state.mainArray);
+            this.setState({products: newData});
+        }
+        else if(result === 'jacket'){
+            const newData = filterArray('jacket', this.state.mainArray);
+            this.setState({products: newData});
+        }
+        else if(result === 'men'){
+            const newData = this.state.mainArray.filter(items =>{
+            return items.gender === 'male'
+            })
+            this.setState({products: newData});
+        }
+        else if(result === 'women'){
+            const newData = this.state.mainArray.filter(items =>{
+            return items.gender === 'female'
+            })
+            this.setState({products: newData});
+        }
     }
-    else if(result === 'croptop'){
-        const newData = filterArray('crop top', this.state.mainArray);
-        this.setState({products: newData})
-    }
-    else if(result === 'dress'){
-        const newData = filterArray('dress', this.state.mainArray);
-        this.setState({products: newData});
-    }
-    else if(result === 'jacket'){
-        const newData = filterArray('jacket', this.state.mainArray);
-        this.setState({products: newData});
-    }
-    else if(result === 'men'){
-        const newData = this.state.mainArray.filter(items =>{
-        return items.gender === 'male'
-        })
-        this.setState({products: newData});
-    }
-    else if(result === 'women'){
-        const newData = this.state.mainArray.filter(items =>{
-        return items.gender === 'female'
-        })
-        this.setState({products: newData});
-    }
-}
     render(){
         return(
             <div>
@@ -80,3 +79,4 @@ class Main extends React.Component{
 }
 
 export default Main;
+

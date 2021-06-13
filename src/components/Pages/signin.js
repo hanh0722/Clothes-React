@@ -10,7 +10,7 @@ class Signin extends React.Component{
             validClass: 'valid-notification',
             redirect: false
         }
-    }
+    }  
     onSignIn = (event) =>{
         this.setState({SignInEmail: event.target.value});
     }
@@ -31,6 +31,7 @@ class Signin extends React.Component{
             if(data.email){
                 this.props.LoadUser(data.email);
                 this.setState({redirect: true});
+                this.props.isLogin('signin');
             }else{
                 this.setState({validClass: 'valid-notification unvalid-notification'})
             }

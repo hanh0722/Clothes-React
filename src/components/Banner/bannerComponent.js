@@ -9,7 +9,7 @@ const BannerComponent = ({imgLink, content, linkTag}) =>{
                 <p className='arrival'>arrivals</p>
                 <p className='content-banner-text'>{content}</p>
                 <div className='line-banner'></div>
-                <Link to='/shop'><button>Shop now!</button></Link>
+                <Link to={`/shop/`}><button>Shop now!</button></Link>
             </div>
         </div>
     )

@@ -1,0 +1,6 @@
+@media screen and (max-width: 772px){
+    .add-animation{
+        animation: dropIn 2s ease forwards !important;
+        animation-delay: calc(var(--order) * 200ms) !important;
+    }
+}

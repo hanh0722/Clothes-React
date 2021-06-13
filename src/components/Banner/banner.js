@@ -2,7 +2,7 @@ import React from 'react';
 import p1 from '../img/new-banner-1.jpg';
 import p2 from '../img/banner-new.jpg';
 import BannerComponent from './bannerComponent';
-const Banner = () =>{
+const Banner = ({loadShop}) =>{
     const data = [
         {
             imgLink: p2,
@@ -15,7 +15,6 @@ const Banner = () =>{
             gender: 'men'
         }
     ]
-
     const BannerContainer = data.map((items, i) =>{
         return <BannerComponent key={i} linkTag={items.gender} imgLink={items.imgLink} content={items.content}/>
     });

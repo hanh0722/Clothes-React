@@ -15,7 +15,7 @@ class Blog extends React.Component{
     }
     // CHANGE fetch to our database and server
     componentDidMount(){
-        fetch('https://clothesreactapp.herokuapp.com/blog')
+        fetch('http://localhost:3001/blog')
         .then(response => response.json())
         .then(data =>{
             this.setState({data: data});
@@ -33,7 +33,7 @@ class Blog extends React.Component{
         const currentTodos = data.slice(indexOfFirstTodo, indexOfLastTodo);
         const renderBlogs = currentTodos.map((items, index) =>{
             return <BlogComponent key={index}
-            url={`http://localhost:3000/img/${items.url}`}
+            url={`${process.env.PUBLIC_URL}/img/${items.url}`}
             title={items.title}
             content={items.contentblog}
             link={items.title}

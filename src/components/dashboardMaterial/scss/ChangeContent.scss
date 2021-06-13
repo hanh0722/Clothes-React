@@ -1,0 +1,122 @@
+#content{
+    width: 100%;
+    padding: 15px;
+    padding-left: 30px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 15px;
+    height: 300px;
+}
+.text-blog{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 0 !important;
+}
+.setting-blog{
+    padding-top: 25px;
+}
+
+.container-admin{
+    justify-content: flex-start;
+}
+.right-side-admin{
+    line-height: 40px;
+    background: #fff;
+}
+#title{
+    padding: 20px 20px 20px 30px;
+    width: 100%;
+}
+.change-content-box{
+    p{
+        margin: 15px 0px;
+    }
+    input{
+        font-size: 15px;
+        font-family: 'Noto Sans', sans-serif;
+    }
+}
+.button-area{
+    text-align: end;
+}
+.button-save{
+    padding: 10px 20px;
+    background: #febb00;
+    border: none;
+    transition: all .3s;
+    color: white;
+    &:hover{
+        cursor: pointer;
+    }
+    &:focus{
+        border: 1px solid #febb00;
+        transform: scale(1.05);
+        outline: none;
+    }
+}
+.show-up-image{
+    position: fixed;
+    top: 20px;
+    width: 300px;
+    background: rgb(200, 250, 205);
+    border-radius: .5rem;
+    right: 0;
+    text-align: end;
+    padding: 20px;
+    z-index: 3;
+    line-height: 40px;
+    text-transform: capitalize;
+    img{
+        width: 150px;
+        height: auto;
+    }
+    p{
+        margin: 0;
+        padding: 10px 0px;
+    }
+    transition: all .5s ease;
+    transform: translateX(100%);
+    opacity: 0;
+    svg{
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+.show-up-again{
+    transform: translateX(0%);
+    opacity: 1;
+}
+@media screen and (max-width: 950px) {
+    .setting-blog{
+        padding-top: 15px;
+    }
+    .content-blog > p{
+        padding: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    .content-blog{
+        line-height: 35px;
+    }
+}
+@media screen and (max-width: 772px){
+    .blog-homepage .input-search-blog{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 576px){
+    .content-blog{
+        line-height: 25px;
+    }
+}

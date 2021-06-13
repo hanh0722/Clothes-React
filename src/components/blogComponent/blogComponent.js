@@ -11,7 +11,6 @@ const BlogComponent = ({url, link, title, content}) => {
             title: title,
             content: content
         };
-       
         sessionStorage.setItem('pageBlog', JSON.stringify(data));
     }
     return(

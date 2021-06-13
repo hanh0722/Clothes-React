@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 class Register extends React.Component{
     constructor(){
         super();
@@ -11,7 +11,8 @@ class Register extends React.Component{
             ageRegister: '',
             isValid: true,
             check: false,
-            validClass: 'valid-notification'
+            validClass: 'valid-notification',
+            isRegistered: false
         }
     }
     onNameInput = (event) =>{
@@ -54,7 +55,8 @@ class Register extends React.Component{
                 })
             }).then(response => response.json()).then(result => {
                 if(result.id){
-                    window.location.href='/shop/account';
+                    this.setState({isRegistered: true});
+                    // window.location.href='/shop/account';
                 }
                 else{
                     this.setState({validClass: 'valid-notification unvalid-notification'});
@@ -64,7 +66,8 @@ class Register extends React.Component{
     }
     render(){
         return(
-        <div>
+            this.state.isRegistered === true ? <Redirect to='/shop/account'/> :
+            <div>
             <div className='background-signin'>
                 <div className='container-signin'>
                     <div className='container-signin-form'>
@@ -82,7 +85,7 @@ class Register extends React.Component{
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
         )
     }
 }

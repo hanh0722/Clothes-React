@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {ListCity} from '../listCity/listcity';
 import Particles from "react-tsparticles";
-import CityComponent from '../listCity/cityComponent';
 import {Link} from 'react-router-dom';
 import Bought from '../ordered/thank';
 class Checkout extends React.Component{
@@ -11,7 +10,6 @@ class Checkout extends React.Component{
             city: ListCity,
             show: 'open',
             inputCity: '',
-            signIn: false,
             emailUser: '',
             cart: [],
             showlist: '',
@@ -23,20 +21,27 @@ class Checkout extends React.Component{
               phonenumber: '',
               email: '',
             },
-            added: false
+            added: false,
+            validation: 'notice-filled',
+            total: ''
         }
         this.particlesInit = this.particlesInit.bind(this);
         this.particlesLoaded = this.particlesLoaded.bind(this);
     }
     componentDidMount(){
       this.setState({cart: this.props.cart});
-
       const signIn = localStorage.getItem('email');
-      if(signIn !== null){
+      if(this.props.validate === true){
         this.setState({emailUser: JSON.parse(signIn)});
-        this.setState({signIn: true});
       }
-      console.log(this.props.cart);
+      else{
+        this.setState({emailUser: ''});
+      }
+
+      const Total = this.props.cart.reduce((acc, items) =>{
+        return acc + items.quantity * items.price;
+      }, 0);
+      this.setState({total: Total});
     }
     ShowList = () =>{
         this.setState({showlist: 'class-show'});
@@ -68,48 +73,32 @@ class Checkout extends React.Component{
     onLoadCompanyName = (event) =>{
       this.setState(Object.assign(this.state.user, {companyname: event.target.value}));
     }
-    onList = () =>{
-        const newList = this.state.city.filter(items =>{
-            return items.toLowerCase().includes(this.state.inputCity.toLowerCase());
-        })
-        const ul = newList.map((items, i) =>{
-            return <CityComponent key={i} city={items}/>
-        })
-
-        const RemoveList = () =>{
-            document.querySelectorAll('.country-side ul li').forEach(items =>{
-                items.addEventListener('click', () =>{
-                    document.querySelector('#country').value = items.textContent;
-                    document.querySelector('.country-side ul').classList.remove('class-show');
-                })
-            })
-        }
-        RemoveList();
-        return ul;
-    }
-
     sendData = () =>{
-      fetch('http://localhost:3001/bill', {
-        method: 'POST',
-        headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({
-          emailUser: this.state.emailUser,
-          firstName: this.state.user.firstname,
-          lastName: this.state.user.lastname,
-          companyName: this.state.user.companyname,
-          countryRegion: this.state.inputCity,
-          address: this.state.user.address,
-          phoneNumber: this.state.user.phonenumber,
-          email: this.state.user.email,
-          items: this.state.cart
-        })
-      }).then(response => response.json())
-      .then(data =>{
-        if(data.id){
-          this.setState({added: true})
-          this.props.onSetCart();
-        }
-      }).catch(err => console.log(err));
+        fetch('http://localhost:3001/bill', {
+          method: 'POST',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify({
+            emailUser: this.state.emailUser,
+            firstName: this.state.user.firstname,
+            lastName: this.state.user.lastname,
+            companyName: this.state.user.companyname,
+            countryRegion: this.state.inputCity,
+            address: this.state.user.address,
+            phoneNumber: this.state.user.phonenumber,
+            email: this.state.user.email,
+            items: JSON.stringify(this.state.cart),
+            totalprice: this.state.total
+          })
+        }).then(response => response.json())
+        .then(data =>{
+          if(data.id){
+            this.setState({added: true})
+            this.props.onSetCart();
+          }
+          else{
+            this.setState({validation: 'notice-filled error-filled'});
+          }
+        }).catch(err => console.log(err));
     }
     particlesInit(main) {
         console.log(main);
@@ -127,9 +116,6 @@ class Checkout extends React.Component{
           </tr>
         });
         
-        const Total = this.state.cart.reduce((acc, items) =>{
-          return acc + items.quantity * items.price;
-        }, 0)
         return(
         <div>
         <Particles
@@ -220,106 +206,112 @@ class Checkout extends React.Component{
                   <div className='container-section container-bill'>
                     <p className='top-title'>Checkout</p>
                     {
-                      this.state.signIn === false ? 
+                      this.props.validate === false ? 
                       <p>Returning customer? <span><Link to="/shop/account">Click here to login</Link></span></p>
                       :
                       <p>Hello {this.state.emailUser}</p>
                     }
-                    <p className='billing-detail-title'>Billing details</p>
-                    <div className='box-bill'>
-                      <div className='bill'>
-                          <div className='first-infor'>
-                              <div className='personal-information'>
-                                  <div>
-                                      <label htmlFor='first-name'>First Name</label>
-                                      <p><input onChange={this.loadFirstName} 
-                                      type='text' 
-                                      required maxLength='50' 
-                                      placeholder='First Name' 
-                                      id='first-name' 
-                                      name='first-name'/></p>
+                    {
+                    this.props.validate === true ? 
+                      <Fragment>
+                        <p className='billing-detail-title'>Billing details</p>
+                        <div className='box-bill'>
+                          <div className='bill'>
+                              <div className='first-infor'>
+                                  <div className='personal-information'>
+                                      <div>
+                                          <label htmlFor='first-name'>First Name</label>
+                                          <p><input onChange={this.loadFirstName} 
+                                          type='text' 
+                                          required maxLength='50' 
+                                          placeholder='First Name' 
+                                          id='first-name' 
+                                          name='first-name'/></p>
+                                      </div>
+                                      <div>
+                                          <label htmlFor='last-name'>Last Name</label>
+                                          <p><input onChange={this.loadLastName} 
+                                          type='text' 
+                                          required maxLength='50' 
+                                          placeholder='Last Name' 
+                                          id='last-name' 
+                                          name='last-name'/></p>
+                                      </div>
                                   </div>
                                   <div>
-                                      <label htmlFor='last-name'>Last Name</label>
-                                      <p><input onChange={this.loadLastName} 
-                                      type='text' 
-                                      required maxLength='50' 
-                                      placeholder='Last Name' 
-                                      id='last-name' 
-                                      name='last-name'/></p>
-                                  </div>
-                              </div>
-                              <div>
-                                  <label htmlFor='company-name'>Company Name</label>
-                                  <p><input onChange={this.onLoadCompanyName} 
-                                  type='text' 
-                                  maxLength='50' 
-                                  placeholder='Company Name (Optional)' 
-                                  id='company-name' 
-                                  name='company-name'/></p>
-                              </div>
-                              <div>
-                                  <label htmlFor='country'>Country / Region</label>
-                                  <div className='country-side'>
-                                      <input
-                                      onClick={this.ShowList} 
-                                      onChange={this.onChangeCity} 
+                                      <label htmlFor='company-name'>Company Name</label>
+                                      <p><input onChange={this.onLoadCompanyName} 
                                       type='text' 
                                       maxLength='50' 
-                                      required placeholder='Country / Region' 
-                                      name='country' 
-                                      id='country'/>
-                                      <ul className={this.state.showlist}>
-                                          {this.onList()}
-                                      </ul>
+                                      placeholder='Company Name (Optional)' 
+                                      id='company-name' 
+                                      name='company-name'/></p>
+                                  </div>
+                                  <div>
+                                      <label htmlFor='country'>Country / Region</label>
+                                      <div className='country-side'>
+                                          <input
+                                          onChange={this.onChangeCity} 
+                                          type='text' 
+                                          maxLength='50' 
+                                          required placeholder='Country / Region' 
+                                          name='country' 
+                                          id='country'/>
+                                      </div>
+                                  </div>
+                                  <div className='address'>
+                                      <label htmlFor='address'>Address</label>
+                                      <p><input onChange={this.loadAddress} 
+                                      type='text' 
+                                      maxLength='100' 
+                                      required placeholder='Address' 
+                                      id='address' 
+                                      name='address'/></p>
+                                  </div>
+                                  <div>
+                                      <label htmlFor='phone-number'>Phone Number</label>
+                                      <p><input onChange={this.loadPhoneNumber} 
+                                      type='tel' 
+                                      required placeholder='Phone Number' 
+                                      name='tel' 
+                                      id='phone-number'/></p>
+                                  </div>
+                                  <div>
+                                      <label htmlFor='email-address'>Email Address</label>
+                                      <p><input onChange={this.loadEmail} 
+                                      type='email' 
+                                      placeholder='Email' 
+                                      id='email-address' 
+                                      name='email'/></p>
                                   </div>
                               </div>
-                              <div className='address'>
-                                  <label htmlFor='address'>Address</label>
-                                  <p><input onChange={this.loadAddress} 
-                                  type='text' 
-                                  maxLength='100' 
-                                  required placeholder='Address' 
-                                  id='address' 
-                                  name='address'/></p>
-                              </div>
-                              <div>
-                                  <label htmlFor='phone-number'>Phone Number</label>
-                                  <p><input onChange={this.loadPhoneNumber} 
-                                  type='tel' 
-                                  required placeholder='Phone Number' 
-                                  name='tel' 
-                                  id='phone-number'/></p>
-                              </div>
-                              <div>
-                                  <label htmlFor='email-address'>Email Address</label>
-                                  <p><input onChange={this.loadEmail} 
-                                  type='email' 
-                                  placeholder='Email' 
-                                  id='email-address' 
-                                  name='email'/></p>
-                              </div>
                           </div>
-                      </div>
-                      <div className='checkout-box'>
-                          <table className='table-box-checkout'>
-                            <tbody>
-                              <tr>
-                                <th style={{width: '80%', textAlign: 'start'}}>Product</th>
-                                <th style={{width: '20%', textAlign: 'center'}}>Subtotal</th>
-                              </tr>
-                              {CheckOut}
-                              <tr>
-                                <td>Total</td>
-                                <td>${Total}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <div style={{textAlign: 'end'}}>
-                            <button onClick={this.sendData}>Order!</button>
+                          <div className='checkout-box'>
+                              <table className='table-box-checkout'>
+                                <tbody>
+                                  <tr>
+                                    <th style={{width: '80%', textAlign: 'start'}}>Product</th>
+                                    <th style={{width: '20%', textAlign: 'center'}}>Subtotal</th>
+                                  </tr>
+                                  {CheckOut}
+                                  <tr>
+                                    <td>Total</td>
+                                    <td>{this.state.total}$</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div style={{textAlign: 'end'}}>
+                                <button onClick={this.sendData}>Order!</button>
+                              </div>
+                              <p className={this.state.validation}>Check your information with not filled blanks</p>
                           </div>
+                        </div>
+                      </Fragment>
+                      :
+                      <div style={{textTransform: 'capitalize', textAlign: 'center', padding: '50px 0px', fontSize: '25px'}}>
+                        <p>Sign in before continue checkout</p>
                       </div>
-                    </div>
+                    }
                   </div> 
                   :
                   <Bought/>

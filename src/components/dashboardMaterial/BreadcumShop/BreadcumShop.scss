@@ -1,0 +1,23 @@
+.title__bread{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5% 10% 0% 10%;
+    font-size: 15px;
+    select{
+        padding: 10px;
+        &:focus{
+            outline: none;
+        }
+        border: 1px solid #ddd;
+    }
+    option{
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 772px){
+    .title__bread{
+        padding: 5% 5% 0% 5%;
+    }
+}
