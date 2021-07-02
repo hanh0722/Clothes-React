@@ -1,5 +1,4 @@
 import React, {createContext, useState, useEffect} from 'react';
-import axios from 'axios';
 const BillContext = createContext({
     bills: []
 })
@@ -7,10 +6,13 @@ const BillContext = createContext({
 export const BillContextProvider = (props) =>{
     const [bills, setBill] = useState([]);
     useEffect(() =>{
-        axios.get('http://localhost:3001/bill/year').then(data =>{
-        setBill(data.data);
+       fetch('http://localhost:3001/bill/year').then(response => response.json())
+       .then(data =>{
+           console.log(data);
+           setBill(data);
+       })
     }, []);
-    })
+    
     return <BillContext.Provider value={{
         bills: bills
     }}>

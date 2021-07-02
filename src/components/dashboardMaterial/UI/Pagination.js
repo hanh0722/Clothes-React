@@ -4,6 +4,7 @@ import BasicUser from "../Users/BasicUser";
 import styles from "./Pagination.module.scss";
 import Select from "./Select";
 import Input from "./Input";
+import DeletedView from "./DeletedView";
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class TodoApp extends React.Component {
       currentPage: 1,
       todosPerPage: 5,
       pages: [],
+      deleted: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -40,11 +42,27 @@ class TodoApp extends React.Component {
     this.setState({ pages: newUser });
   };
   deleteUserHandler = (id) => {
+    fetch('http://localhost:3001/user/deleted', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'Application/json'},
+      body: JSON.stringify({
+        id: id
+      })
+    }).then(response => response.json())
+    .then(data => {
+      if(data === 0){
+        return;
+      }
+      this.setState({deleted: true});
+    }).catch(err => console.log(err));
     const newListUser = this.state.pages.filter((user) => {
       return user.id !== id;
     });
     this.setState({ pages: newListUser });
   };
+  // setTurnOffHandler = () =>{
+  //   this.setState({deleted: false});
+  // }
   render() {
     const { pages, currentPage, todosPerPage } = this.state;
     // Logic for displaying todos
@@ -74,6 +92,7 @@ class TodoApp extends React.Component {
             onChange: this.changeUserHandler,
           }}
         />
+        {/* <DeletedView turnOff={this.setTurnOffHandler} deleted={this.state.deleted}/> */}
           <ul className={styles.user}>
             <BasicUser
               users={currentTodos}

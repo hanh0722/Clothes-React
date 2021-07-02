@@ -5,6 +5,8 @@
     font-family: 'Noto Sans', sans-serif;
     font-size: 15px;
     height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 .text-blog{
     white-space: pre-wrap;
@@ -33,6 +35,8 @@
 #title{
     padding: 20px 20px 20px 30px;
     width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 .change-content-box{
     p{

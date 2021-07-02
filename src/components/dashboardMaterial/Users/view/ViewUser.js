@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useReducer, useRef} from "react";
 import styles from "./ViewUser.module.scss";
 import classes from "../../BlogAdmin/BlogAdmin.module.scss";
 import p1 from "../../../img/16-13-avatar.png";
@@ -11,17 +11,17 @@ const userReducer = (state, action) => {
     case "IS_BANNED":
       return {
         isBanned: !state.isBanned,
-        role: state.role
+        role: state.role,
       };
-    case 'CHANGE_ROLE':
+    case "CHANGE_ROLE":
       return {
         isBanned: state.isBanned,
-        role: action.payload
-      }
+        role: action.payload,
+      };
     default:
       return {
         isBanned: false,
-        role: state.role
+        role: state.role,
       };
   }
 };
@@ -33,7 +33,7 @@ const ViewUser = ({ data }) => {
   const inputRefRole = useRef();
   const [state, dispatch] = useReducer(userReducer, {
     isBanned: false,
-    role: data.priority
+    role: data.priority,
   });
   const isBannedHandler = () => {
     dispatch({
@@ -41,14 +41,42 @@ const ViewUser = ({ data }) => {
     });
   };
   const onChangeRoleHandler = (event) => {
+    let result = "";
+    if (event.target.value === "true") {
+      result = true;
+    } else if (event.target.value === "false") {
+      result = false;
+    }
     dispatch({
       type: "CHANGE_ROLE",
-      payload: Boolean(event.target.value)
+      payload: result,
     });
-    console.log(Boolean(event.target.value));
   };
   const submitHandler = (event) => {
     event.preventDefault();
+    if (
+      !inputRefAge.current.value ||
+      !inputRefEmail.current.value ||
+      !inputRefName.current.value ||
+      !inputRefRole.current.value
+    ) {
+      return;
+    }
+    fetch(`http://localhost:3001/user/${data.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: inputRefName.current.value,
+        age: inputRefAge.current.value,
+        email: inputRefEmail.current.value,
+        role: inputRefRole.current.value
+      }),
+    }) 
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <>
@@ -103,8 +131,8 @@ const ViewUser = ({ data }) => {
                 <select
                   ref={inputRefRole}
                   id="role"
-                  value={state.role === true ? "Admin" : "Customer"}
                   onChange={onChangeRoleHandler}
+                  value={!state.role ? 'false' : 'true'}
                 >
                   <option value="true">Admin</option>
                   <option value="false">Customer</option>
@@ -130,4 +158,4 @@ const ViewUser = ({ data }) => {
   );
 };
 
-export default ViewUser;
+export default React.memo(ViewUser);

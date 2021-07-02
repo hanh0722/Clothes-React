@@ -7,23 +7,27 @@ import Profit from '../ProfitTable/Profit';
 import LayoutDashBoard from '../../Layout/LayoutDashboard';
 import RightSide from '../RightSide/Rightside';
 import WelcomeAdmin from '../Welcome/Welcome';
+const fetchData = (url) =>{
+  const data = fetch(url).then(response => response.json())
+  return data;
+}
 const HomePage = ({ onNumberBlog, onName}) =>{
     const [bills, setBill] = useState([]);
     const [invoices, setInvoice] = useState([]);
     const [feedbacks, setFeedBacks] = useState([]);
     useEffect(() =>{
-      fetch('http://localhost:3001/calculate/bill').then(response => response.json())
+      fetchData('http://localhost:3001/calculate/bill')
       .then(data => {
         setBill(data);
       })
       .catch(err => console.log(err));
 
-      fetch('http://localhost:3001/invoice/bill').then(response => response.json())
+      fetchData('http://localhost:3001/invoice/bill')
       .then(data =>{
         setInvoice(data);
       }).catch(err => console.log(err));
 
-      fetch('http://localhost:3001/customer/feedback').then(response => response.json())
+      fetchData('http://localhost:3001/customer/feedback')
       .then(data =>{
         setFeedBacks(data);
       }).catch(err => console.log(err));

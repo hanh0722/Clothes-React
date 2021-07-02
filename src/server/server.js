@@ -276,11 +276,11 @@ app.post("/bill/month", (req, res) => {
     .catch((err) => res.status(400).json("err"));
 });
 
-// app.get("/bill/year", (req, res) => {
-//   db('bills').whereBetween('date', [`${new Date().getFullYear()}-01-01`, new Date()])
-//   .then(data => res.json(data))
-//   .catch(err => console.log(err));
-// });
+app.get("/bill/year", (req, res) => {
+  db('bills').whereBetween('date', [`${new Date().getFullYear()}-01-01`, new Date()])
+  .then(data => res.json(data))
+  .catch(err => console.log(err));
+});
 
 app.post("/feedback", (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -368,6 +368,16 @@ app.put('/user/:id', (req, res) =>{
   .catch(err => res.status(400).json(err));
 })
 
+app.delete('/user/deleted', (req, res) =>{
+  const {id} = req.body;
+  if(!id){
+    return res.status(400).json('not valid!');
+  }
+  db('users').where('id', '=', id)
+  .del()
+  .then(data => res.json(data))
+  .catch(err => res.status(400).json('error'));
+})
 app.listen(3001, () => {
   console.log(`app is running at port ${process.env.PORT}`);
 });
