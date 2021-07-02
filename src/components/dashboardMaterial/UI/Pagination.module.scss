@@ -1,0 +1,27 @@
+.user, .pagination{
+    list-style: none;
+}
+
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    li{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #c8facd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all .3s;
+        &:hover{
+            background: #febb00;
+            color: white;
+        }
+    }
+    padding-top: 20px;
+}

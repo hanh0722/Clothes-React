@@ -7,12 +7,12 @@ const Banner = ({loadShop}) =>{
         {
             imgLink: p2,
             content: 'womens special collections',
-            gender: 'women'
+            gender: 'female'
         },
         {
             imgLink: p1,
             content: 'mens special collections',
-            gender: 'men'
+            gender: 'male'
         }
     ]
     const BannerContainer = data.map((items, i) =>{

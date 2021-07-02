@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SuccessFeedback from "../SuccessFeedback/SuccessFeedback";
+import {CONTACT} from '../../Title/Title';
+import Helmet from 'react-helmet';
 // using class for save data to server
 const Contact = () => {
   const [name, setName] = useState("");
@@ -37,6 +39,8 @@ const Contact = () => {
     setSuccessNotification(false);
   };
   return (
+    <>
+    <Helmet><title>{CONTACT}</title></Helmet>
     <div className="container-section container-contact">
       <p>Contact with us</p>
       <iframe
@@ -128,6 +132,7 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

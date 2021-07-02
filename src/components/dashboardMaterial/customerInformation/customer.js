@@ -40,7 +40,7 @@ const InformationCustomer = () =>{
         <div className='container-section container-customer'>
             <div className='left-sidebar'>
                 <div className='icon-user'>
-                    <img alt='avatar' src={`${process.env.PUBLIC_URL}/img/avatar.png`}/>
+                    <img alt='avatar' src={require('../../img/13-avatar.png').default}/>
                 </div>
                 <ul>
                     <li>Username: {user.email}</li>

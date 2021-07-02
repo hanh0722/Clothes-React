@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './Cart.module.scss';
 const CartComponent = ({url, name, price, quantity, removeItem, id}) =>{
     
     return(
@@ -11,7 +11,7 @@ const CartComponent = ({url, name, price, quantity, removeItem, id}) =>{
                 {quantity} 
             </td>
                 <td>${quantity * price}.00</td>
-            <td onClick={() => removeItem(id)} className='delete-item'>Delete</td>
+            <td onClick={() => removeItem(id)} className={`delete-item ${styles['cart-item']}`}>Delete</td>
         </tr>
     )
     

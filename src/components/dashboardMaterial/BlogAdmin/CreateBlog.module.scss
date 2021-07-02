@@ -1,0 +1,13 @@
+.plus{
+    padding-right: 10px;
+}
+.create_post{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    transition: background .3s;
+    &:hover{
+        background: #167D46;
+    }
+}

@@ -19,7 +19,8 @@ class DetailProduct extends React.Component{
                 quantity: 0
             },
             exist: true,
-            background: 'background-black-product'
+            background: 'background-black-product',
+            imgUrl: '',
         }
 
     }
@@ -38,7 +39,7 @@ class DetailProduct extends React.Component{
                 this.setState({
                     product: {
                         id: data.id,
-                        url: data.img,
+                        url: require(`../img/${data.img}`).default,
                         introduction: data.introduction,
                         nameProduct: data.name,
                         price: data.price,
@@ -90,7 +91,8 @@ class DetailProduct extends React.Component{
             {
                 <div className='container-new-detail'>
                     <div className='left-details'>
-                        <img src={`${process.env.PUBLIC_URL}/img/${this.state.product.url}`} alt=''/>
+                        
+                        <img src={this.state.product.url} alt=''/>
                         <div onClick={this.onFullScreen} className='icon-bigger'>
                             <FontAwesomeIcon icon={faSearch}/>
                         </div>

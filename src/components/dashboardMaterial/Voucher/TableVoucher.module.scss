@@ -1,0 +1,38 @@
+.tableVoucher{
+    margin: 20px 0px;
+    input{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        border-bottom: 2px solid #febb00;
+        visibility: hidden;
+        opacity: 0;
+        transition: padding .5s;
+    }
+    height: 0px;
+    transition: height .5s;
+}
+.invalid{
+    border-color: red !important;
+}
+
+.submit_button{
+    text-align: end;
+    visibility: hidden;
+    height: 0;
+    transition: all .5s;
+    opacity: 0;
+}
+.voucher{
+    height: 120px;
+    input{
+        opacity: 1;
+        padding: 20px;
+        visibility: visible;
+    }
+    .submit_button{
+        visibility: visible;
+        height: auto;
+        opacity: 1;
+    }
+}

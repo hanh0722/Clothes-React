@@ -3,46 +3,58 @@ import Chart from "react-apexcharts";
 
 
 class ChartComponent extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-
     this.state = {
-      options: {
-        chart: {
-          id: "basic-bar"
-        },
-        xaxis: {
-          categories: [1,2,3,4,5,6]
-        },
-        colors: ['rgb(255, 193, 7)', 'rgb(0, 171, 85)']
-      },
       series: [
         {
-          name: "Income",
-          data: this.props.dataBill,
+          name: "Total",
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
         },
-        {
-          name: 'Bills',
-          data: [1,2,3,4,5,6]
+    ],
+      options: {
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: 'Product Trends by Month',
+          align: 'left'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
         }
-      ]
+      },
     };
   }
-
-  render() {
+  componentDidMount(){
+    
+  }
+  render(){
     return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type='line'
-              width="100%"
+      <>
+          <Chart
+            options={this.state.options}
+            series={this.state.series}
+            type='line'
+            width="100%"
             />
-          </div>
-        </div>
-      </div>
+      </>
     );
   }
 }

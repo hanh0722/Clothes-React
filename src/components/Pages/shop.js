@@ -2,20 +2,28 @@ import React from "react";
 import BannerClock from "../bannerClock/bannerclock";
 import BreadCumShop from "../dashboardMaterial/BreadcumShop/BreadcumShop";
 import ShopComponent from "../shopcomponent/shopcomponent";
-
+import {SHOP} from '../../Title/Title';
+import Helmet from 'react-helmet';
+import ScrollToTop from '../scrolltoTopRouter/scrollToTopRouter';
 const fetchItem = (link) =>{
     return fetch(link).then(response => response.json());
 }
+const filterItem = (array, option) =>{
+  const filter = array.filter(items =>{
+    return items.gender === option;
+  })
+  return filter;
+}
 class Shop extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       item: [],
       totalItem: "",
       items: "",
       listItems: [],
       currentPage: 1,
-      itemsPerPage: 8,
+      itemsPerPage: 20,
       newListItem: [],
       initialArray: []
     };
@@ -39,6 +47,7 @@ class Shop extends React.Component {
     this.setState({
       currentPage: Number(event.target.id),
     });
+    window.scrollTo(0,0);
   };
 
 
@@ -59,6 +68,14 @@ class Shop extends React.Component {
             this.setState({item: data});
           })
       }
+      else if(data === 4){
+        const array = filterItem(this.state.initialArray, 'male');
+        this.setState({item: array});
+      }
+      else if(data === 5){
+        const array = filterItem(this.state.initialArray, 'female');
+        this.setState({item: array});
+      }
   };
 
   render() {
@@ -71,7 +88,7 @@ class Shop extends React.Component {
       return (
         <ShopComponent
           key={index}
-          url={`${process.env.PUBLIC_URL}/img/${item.img}`}
+          url={item.img}
           name={item.name}
           id={item.id}
           sale={item.sale}
@@ -95,15 +112,19 @@ class Shop extends React.Component {
     });
 
     return (
-      <div>
+      <>
+        <ScrollToTop/>
+        <Helmet><title>{SHOP}</title></Helmet>
         <BannerClock />
         <BreadCumShop
           quantity={this.state.totalItem}
           handlerSort={this.handlerSort}
+          selected={this.props.selected}
+          item={this.state.item.length}
         />
         <div className="shop-component">{renderItem}</div>
         <div className="list-number">{renderPageNumber}</div>
-      </div>
+      </>
     );
   }
 }

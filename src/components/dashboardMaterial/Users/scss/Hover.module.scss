@@ -1,0 +1,31 @@
+.hover{
+    position: relative;
+    &:hover{
+        .fixed{
+            width: 100%;
+            background: #c8facd;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            top: 0;
+            transform: translateY(0%);
+            opacity: 1;
+        }
+    }
+    svg{
+        transition: all .3s;
+        &:hover{
+            color: #febb00;
+            cursor: pointer;
+        }
+    }
+    a{
+        color: black;
+    }
+}
+
+.fixed{
+    transition: all .3s;
+    transform: translateY(50%);
+    opacity: 0;
+}

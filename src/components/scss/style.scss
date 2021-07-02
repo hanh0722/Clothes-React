@@ -88,7 +88,7 @@ nav{
             height: 100%;
             display: flex;
             align-items: center;
-            padding: 0px 20px;
+            padding: 0px 30px;
             transition: all .3s;
             &:hover{
                 background: $orange;
@@ -97,6 +97,7 @@ nav{
             &:hover svg{
                 color: white;
             }
+            position: relative;
         }
     }
     svg{
@@ -129,7 +130,7 @@ nav{
     visibility: hidden;
     width: 180px;
     background: #fff;
-    z-index: 2;
+    z-index: -1;
     line-height: 40px;
     right: 0;
     height: 0px;
@@ -159,9 +160,6 @@ nav{
 }
 .background-black-block{
     display: block !important;
-}
-.transition-navbar{
-    transform: translateX(0%) !important;
 }
 .class-toggle{
     visibility: visible !important;
@@ -1334,8 +1332,13 @@ footer{
 }
 .list-2:hover .list-inside{
     visibility: visible !important;
-    height: 120px !important;
+    height: 80px !important;
     opacity: 1 !important;
+    z-index: 2;
+}
+.list-2:hover .list-inside-2{
+    height: 120px !important;
+    z-index: 2;
 }
 #tsparticles{
     position: fixed;
@@ -1671,6 +1674,7 @@ footer{
         text-transform: capitalize;
         background: $orange;
         color: #fff;
+        cursor: pointer;
     }
     .button-1{
         font-weight: bold;
@@ -1962,6 +1966,9 @@ footer{
     }
 }
 @media screen and (max-width: 772px){
+    .transition-navbar{
+        transform: translateX(0%) !important;
+    }
     .checkout-cart, .checkout-box, .bill{
         width: 100% !important;
     }
@@ -1980,6 +1987,9 @@ footer{
         background: rgba($color: #000000, $alpha: 0.5);
         display: none;
         z-index: 2;
+    }
+    .go-cart{
+        width: 80%;
     }
     nav{
         height: 0;
@@ -2420,6 +2430,9 @@ footer{
                 text-align: center !important;  
             }
         }
+    }
+    .go-cart{
+        width: 95% !important;
     }
 }
 @media screen and (max-width: 400px){

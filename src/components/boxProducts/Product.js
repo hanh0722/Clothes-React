@@ -18,7 +18,7 @@ class Product extends React.Component{
     render(){
         return(
             <div className='recent-product'>
-                <Link to={`/shop/${this.props.name}`}><img onClick={this.onDataSession} src={this.props.picture} alt=''/></Link>
+                <Link to={`/shop/product/${this.props.id}/${this.props.name}`}><img onClick={this.onDataSession} src={this.props.picture} alt=''/></Link>
                 <div className='price'>
                     <p className='name-product'>{this.props.name}</p>
                     {

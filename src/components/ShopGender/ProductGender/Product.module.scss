@@ -1,0 +1,23 @@
+.list_gender{
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.classItem{
+    width: 30%;
+}
+@media screen and (max-width: 772px) {
+    .list_gender{
+        width: 100%;
+    }
+    .classItem{
+        width: 32%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .classItem{
+        width: 49%;
+    }
+}

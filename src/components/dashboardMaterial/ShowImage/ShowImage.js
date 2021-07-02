@@ -14,7 +14,7 @@ const ShowUpImage = ({url, check, setCheck}) =>{
     return(
         <div className={classItem}>
             <p>Changed successfully</p>
-            <img alt='' src={`${process.env.PUBLIC_URL}/img/${url}`}/>
+            <img alt='' src={require(`../..//img/${url}`).default}/>
             <FontAwesomeIcon onClick={setCheck} icon={faTimesCircle}/>
         </div>
     )

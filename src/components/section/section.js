@@ -1,16 +1,20 @@
-import React, {useEffect} from 'react';
-import {SectionData} from './sectiondata';
-import SectionComponent from './sectionComponent';
+import React, {useEffect, useState} from 'react';
+import SectionContainer from './SectionContainer'
 import AOS from 'aos';
 
 const Section = () =>{
+    const [news, setNews] = useState([]);
     useEffect(() =>{
+        fetch('http://localhost:3001/blog').then(response => response.json())
+        .then(data => {
+            const array = [];
+            for(let i = 0; i <= 2; i++){
+                array.push(data[i]);
+            }
+            setNews(array);
+        })
         AOS.init();
     }, [])
-
-    const SectionContainer = SectionData.map((items, i) =>{
-        return <SectionComponent key={i} url={items.img} name={items.name} content={items.content}/>
-    })
     
     return(
         <div data-aos='fade-up' data-aos-duration='1000' className='container-inside'>
@@ -18,7 +22,7 @@ const Section = () =>{
                 <p className='title-text'>Latest new</p>
                 <div className='container-section'>
                     <section className='section-1'>
-                        {SectionContainer}
+                        <SectionContainer data={news}/>
                     </section>
                 </div>
             </div>

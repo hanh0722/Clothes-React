@@ -131,7 +131,7 @@ const Header = ({ onNavBar, isLogin, validate, onSetAdmin }) => {
                 </div>
               </div>
             ) : (
-              <Link style={{ marginLeft: "10px" }} to="/shop/account">
+              <Link style={{ marginLeft: "10px" }} to="/account">
                 Sign in
               </Link>
             )}

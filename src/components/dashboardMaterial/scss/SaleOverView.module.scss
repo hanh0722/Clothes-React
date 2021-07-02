@@ -1,0 +1,14 @@
+.box-sale{
+    width: 60% !important;
+    > p{
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 772px) {
+    .box-sale{
+        width: 100% !important;
+    }
+}

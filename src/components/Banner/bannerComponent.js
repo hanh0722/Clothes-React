@@ -1,5 +1,5 @@
 import React from 'react';  
-import {Link} from 'react-router-dom'
+import Button from './button';
 const BannerComponent = ({imgLink, content, linkTag}) =>{
     return(
         <div className='left-banner'>
@@ -9,7 +9,7 @@ const BannerComponent = ({imgLink, content, linkTag}) =>{
                 <p className='arrival'>arrivals</p>
                 <p className='content-banner-text'>{content}</p>
                 <div className='line-banner'></div>
-                <Link to={`/shop/`}><button>Shop now!</button></Link>
+                <Button url={linkTag}/>
             </div>
         </div>
     )

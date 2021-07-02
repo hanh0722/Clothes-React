@@ -1,0 +1,10 @@
+.post_layout{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 772px) {
+    .post_layout{
+        display: block;
+    }
+}

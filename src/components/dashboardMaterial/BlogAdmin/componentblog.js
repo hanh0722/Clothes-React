@@ -7,7 +7,8 @@ const ComponentBlog = ({title, url, id, setId, content, all, setHandleData}) =>{
     return(
         <div className='blog-component-admin'>
             <div className='img-box'>
-                <img alt='' src={`${process.env.PUBLIC_URL}/img/${url}`}/>
+            {/* if we want to change the picture we can use require and .default to make sure that we can show up */}
+                <img alt='' src={require(`../../img/${url}`).default}/>
             </div>
             <div className='content-blog'>
                 <p>{title}</p>

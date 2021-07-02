@@ -1,5 +1,7 @@
 import React from 'react';
 import BlogComponent from '../blogComponent/blogComponent';
+import Helmet from 'react-helmet';
+import {BLOGS} from '../../Title/Title';
 // get data from database to setup blog array
 
 class Blog extends React.Component{
@@ -18,7 +20,10 @@ class Blog extends React.Component{
         fetch('http://localhost:3001/blog')
         .then(response => response.json())
         .then(data =>{
-            this.setState({data: data});
+            const newData = data.filter(items =>{
+                return items.active === true;
+            })
+            this.setState({data: newData});
         })
     }
     handleClick(event) {
@@ -33,7 +38,7 @@ class Blog extends React.Component{
         const currentTodos = data.slice(indexOfFirstTodo, indexOfLastTodo);
         const renderBlogs = currentTodos.map((items, index) =>{
             return <BlogComponent key={index}
-            url={`${process.env.PUBLIC_URL}/img/${items.url}`}
+            url={require(`../img/${items.url}`).default}
             title={items.title}
             content={items.contentblog}
             link={items.title}
@@ -47,6 +52,8 @@ class Blog extends React.Component{
             return <li key={items} onClick={this.handleClick} id={items}>{items}</li>
         })
         return(
+            <>
+            <Helmet><title>{BLOGS}</title></Helmet>
             <div className='container-section container-blog'>
                 <div className='container-component-blog'>
                     {renderBlogs}
@@ -57,7 +64,7 @@ class Blog extends React.Component{
                 <div className='container-time-links'>
                 </div>
             </div>
-
+            </>
         )
     }
 }

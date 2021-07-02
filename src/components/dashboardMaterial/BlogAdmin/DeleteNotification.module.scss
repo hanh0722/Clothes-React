@@ -1,0 +1,23 @@
+.notification{
+    position: fixed;
+    top: 5%;
+    right: 0;
+    padding: 30px;
+    background: #c8facd;
+    svg{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+    transition: all .5s;
+    opacity: 0;
+    transform: translateX(100%);
+    border-radius: 10px;
+}
+
+.transform_back{
+    transform: translateX(0%);
+    opacity: 1;
+}
+

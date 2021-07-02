@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 const BlogComponent = ({url, link, title, content}) => {
-
+    const newUrl = link.split(' ').join('-');
     const setRender = () =>{
         const data = {
             url: url,
@@ -21,7 +21,7 @@ const BlogComponent = ({url, link, title, content}) => {
             <p><FontAwesomeIcon icon={faCalendarAlt}/> November 11, 2016</p>
             <p className='introduction-blog'>{content}</p>
             <div className='border-bottom-blog'>
-                <Link onClick={setRender} to={`/blog/${link}`}><p>+ Read more</p></Link>
+                <Link onClick={setRender} to={`/blog/${newUrl}`}><p>+ Read more</p></Link>
             </div>
         </div>
     </div>

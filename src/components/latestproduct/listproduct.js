@@ -12,7 +12,7 @@ const ListProductAll = ({onFilter, onData}) =>{
     }, [])
 
     const data = onData.map((items, i) =>{
-        return <ProductsLatest key={i} url={`${process.env.PUBLIC_URL}/img/${items.img}`} nameProduct={items.name} oldPrice={items.sale} newPrice={items.price}/>
+        return <ProductsLatest key={i} url={require(`../img/${items.img}`).default} nameProduct={items.name} oldPrice={items.sale} newPrice={items.price}/>
     })
     
     return(

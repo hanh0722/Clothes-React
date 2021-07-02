@@ -1,14 +1,23 @@
 import React from 'react';
-
+import styles from './SectionComponent.module.scss';
+import {Link} from 'react-router-dom';
 const SectionComponent = ({url, name, content}) =>{
+    const setBlogRender = () =>{
+        const data = {
+            url: url,
+            title: name,
+            content: content
+        };
+        sessionStorage.setItem('pageBlog', JSON.stringify(data));
+    }
     return(
         <div className='box-introduce'>
-            <img src={url} alt=''/>
+            <img src={require(`../img/${url}`).default} alt=''/>
             <div className='box-information'>
-                <h3>{name}</h3>
-                <p>{content}</p>
+                <h3 className={styles.title}>{name}</h3>
+                <p className={styles['short-text']}>{content}</p>
                 <div className='line-information'></div>
-                <p><a href="/#">Read more</a></p>
+                <Link onClick={setBlogRender} to={`/blog/${name}`}><p>Read more</p></Link>
             </div>
         </div>
     )

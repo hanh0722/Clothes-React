@@ -1,0 +1,11 @@
+export const MAIN = 'Fashion Friend';
+export const ABOUT = 'About Us';
+export const SERVICES = 'Services';
+export const SHOP = 'Shop';
+export const ACCOUNT = 'Account';
+export const CHECKOUT = 'Checkout';
+export const CART = 'Cart';
+export const BLOGS = 'Blogs';
+export const CONTACT = 'Contact';
+export const REGISTER = 'Register';
+export const SIGN_IN = 'Sign In';

@@ -1,0 +1,25 @@
+.button{
+    width: 35px;
+    height: 13px;
+    background: rgba(0, 171, 85, 0.28);
+    border-radius: 18px;
+    position: relative;
+    .toggle{
+        background: rgb(0, 171, 85);
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(100%, -50%);
+        transition: all .5s ease;
+        cursor: pointer;
+    }
+}
+.toggle-back{
+    transform: translate(0%, -50%) !important;
+    background: #f8f8f8 !important;
+}
+.button_back{
+    background: lightgray !important;
+}

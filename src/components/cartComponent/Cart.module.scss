@@ -1,0 +1,7 @@
+.cart-item{
+    transition: all .3s;
+    &:hover{
+        background: #febb00;
+        color: white;
+    }
+}

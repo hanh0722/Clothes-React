@@ -1,0 +1,21 @@
+.container{
+    width: 35% !important;
+    height: 300px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track{
+        background: #c8facd;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: rgb(254, 187, 0);
+    }
+
+}
+
+@media screen and (max-width: 772px) {
+    .container{
+        width: 100% !important;
+    }
+}

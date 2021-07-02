@@ -1,0 +1,33 @@
+.not-valid{
+    width: 50%;
+    margin: 0 auto;
+    box-shadow: 0px 2px 8px rgba($color: #fff, $alpha: .26);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    line-height: 40px;
+    min-height: 30vh;
+}
+
+.not-valid button{
+    padding: 15px 20px;
+    background: #febb00;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 772px) {
+    .not-valid{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .not-valid{
+        width: 100%;
+    }
+}

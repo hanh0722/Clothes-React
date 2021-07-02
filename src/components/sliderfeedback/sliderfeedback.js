@@ -32,7 +32,6 @@ const SliderFeedback = () =>{
                 >
                     {Container}
                 </Swiper>
-                <button className='button-fb'>View all</button>
             </div>
         </div>
     )

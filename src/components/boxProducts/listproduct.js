@@ -21,7 +21,7 @@ class ListProduct extends React.Component {
     }
     ListComponent = () =>{
         const ListCard = this.state.ListData.map((items, i) =>{
-            return <Product key={i} picture={`${process.env.PUBLIC_URL}/img/${items.img}`} name={items.name} sale={items.sale} price={items.price}/>
+            return <Product key={i} picture={require(`../img/${items.img}`).default} id={items.id} name={items.name} sale={items.sale} price={items.price}/>
         })
         return ListCard;
     }

@@ -4,8 +4,10 @@ import {number, title} from '../primary/data';
 import { Line } from 'react-chartjs-2';
 import LineTableList from '../primary/LineTableList';
 import Profit from '../ProfitTable/Profit';
-const HomePage = ({ onNumberBlog}) =>{
-
+import LayoutDashBoard from '../../Layout/LayoutDashboard';
+import RightSide from '../RightSide/Rightside';
+import WelcomeAdmin from '../Welcome/Welcome';
+const HomePage = ({ onNumberBlog, onName}) =>{
     const [bills, setBill] = useState([]);
     const [invoices, setInvoice] = useState([]);
     const [feedbacks, setFeedBacks] = useState([]);
@@ -63,6 +65,9 @@ const HomePage = ({ onNumberBlog}) =>{
     };
 
     return(
+      <LayoutDashBoard>
+      <RightSide>
+      <WelcomeAdmin onName={onName} />
         <div className='first-admin'>
             <div className='box-customer'>
                 {box}
@@ -88,6 +93,8 @@ const HomePage = ({ onNumberBlog}) =>{
               <Profit data={bills}/>
             </div>
         </div>
+        </RightSide>
+      </LayoutDashBoard>
     )
 }
 

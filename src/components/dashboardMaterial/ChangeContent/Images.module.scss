@@ -1,0 +1,18 @@
+.image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 50%;
+        padding-top: 20px;
+        height: auto;
+    }
+}
+
+.form{
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 18px;
+}

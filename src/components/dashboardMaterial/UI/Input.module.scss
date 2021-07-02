@@ -1,0 +1,19 @@
+.search-box{
+    position: relative;
+    input{
+        padding: 15px 30px;
+        border: 1px solid #ddd;
+        &:focus{
+            outline: none;
+        }
+        border-radius: 10px;
+
+    }
+    svg{
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        font-size: 14px;
+    }
+}

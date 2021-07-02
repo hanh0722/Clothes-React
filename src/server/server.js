@@ -124,6 +124,7 @@ app.post("/shop/detail", (req, res) => {
 app.get("/blog", (req, res) => {
   db.select("*")
     .from("blog")
+    .orderBy('id', 'desc')
     .then((data) => {
       res.json(data);
     })
@@ -243,14 +244,16 @@ app.put("/update/blog", (req, res) => {
     .catch((err) => res.status(400).json("not working!"));
 });
 
+
+
 // using multer
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../../public/img");
+    cb(null, "../components/img");
   },
   // the directory we want to save
   filename: (req, file, cb) => {
-    cb(null, new Date().getDate() + "-" + file.originalname);
+    cb(null, new Date().getDate() + '-' + file.originalname);
   },
   // create name of file we want
 });
@@ -259,7 +262,7 @@ const upload = multer({ storage: fileStorageEngine });
 
 app.post("/upload/image", upload.single("image"), (req, res) => {
   if (!req.file) {
-    return res.status(400).json("err");
+    return res.status(400).json("invalid!");
   }
   res.json(req.file);
 });
@@ -273,29 +276,11 @@ app.post("/bill/month", (req, res) => {
     .catch((err) => res.status(400).json("err"));
 });
 
-app.get("/bill/year", (req, res) => {
-    const promises = [];
-
-    const totalBills = (bill) =>{
-        const total = bill.reduce((acc, items) =>{
-          return acc + items.totalprice;
-        }, 0);
-        return total;
-    }
-
-    for(let i = 1; i <= new Date().getMonth() + 1; i++){
-        const promise = db('bills').andWhereRaw(`EXTRACT(MONTH FROM date::date) = ?`, [i])
-        promises.push(promise)
-    }
-
-    Promise.all(promises).then(data => {
-        const newData = data.map(items =>{
-            return totalBills(items);
-        })
-        res.json(newData);
-    }).catch(err => res.status(400).json(err));
-
-});
+// app.get("/bill/year", (req, res) => {
+//   db('bills').whereBetween('date', [`${new Date().getFullYear()}-01-01`, new Date()])
+//   .then(data => res.json(data))
+//   .catch(err => console.log(err));
+// });
 
 app.post("/feedback", (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -320,6 +305,68 @@ app.get("/customer/feedback", (req, res) => {
     .then((data) => res.json(data))
     .catch((err) => res.status(400).json("not working"));
 });
+
+app.post('/voucher', (req, res) =>{
+  const {voucher} = req.body;
+  db('discount').where({
+    voucher: voucher
+  }).then(data =>{
+    res.json(data[0])
+  }).catch(err => res.status(400).json('not valid!'));
+})
+
+app.delete('/blogs', (req, res) =>{
+  const {id} = req.body;
+  db('blog').where({
+    id: id
+  }).del()
+  .then(data =>{
+    res.json(data);
+  }).catch(err => res.status(400).json(err));
+});
+
+app.post('/upload/new-post', (req, res) =>{
+  const {title, content, image, active} = req.body;
+  if(!title || !content || !image){
+    return res.status(400).json('not valid');
+  }
+  db('blog').insert({
+    title: title,
+    contentblog: content,
+    url: image,
+    active: active
+  }).returning('*')
+  .then(data =>{
+    res.json(data[0]);
+  }).catch(err => res.status(400).json(err));
+})
+
+app.get('/list/user', (req, res) =>{
+  db.select('*').from('users')
+  .then(data => res.json(data))
+  .catch(err => res.status(400).json('err'));
+});
+
+app.get('/user/:id', (req, res) =>{
+  const {id} = req.params;
+  db('users').where('id', '=', id)
+  .returning('*')
+  .then(data => res.json(data[0]))
+  .catch(err => res.status(400).json('error!'));
+})
+
+app.put('/user/:id', (req, res) =>{
+  const {id} = req.params;
+  const {name, age, email, role} = req.body;
+  db('users').where('id', '=', id)
+  .update({
+    name: name,
+    age: age,
+    email: email,
+    priority: role
+  }).then(data => res.json(data))
+  .catch(err => res.status(400).json(err));
+})
 
 app.listen(3001, () => {
   console.log(`app is running at port ${process.env.PORT}`);

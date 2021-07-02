@@ -1,0 +1,28 @@
+.container__shop{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0px 30px;
+}
+
+@media screen and (max-width: 992px) {
+    .container__shop{
+        max-width: 960px;
+        padding: 0px 20px;
+    }
+}
+
+@media screen and (max-width: 772px) {
+    .container__shop{
+        display: block;
+        max-width: 720px;
+        padding: 0 15px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container__shop{
+        padding: 0 10px;
+    }
+}

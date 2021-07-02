@@ -1,27 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import '../scss/Chart.scss';
-import ContainerChart from './ContainerChart';
-import ChartComponent from '../ChartComponent/ChartComponent';
+import React, {useContext} from "react";
+import "../scss/Chart.scss";
+import ContainerChart from "./ContainerChart";
+import ChartComponent from "../ChartComponent/ChartComponent";
+import BillContext from "../ContextInYearBill/context-bill";
+const ChartValue = () => {
+    const BillCtx = useContext(BillContext);
+  return (
+    <div className="box-customer">
+      <ContainerChart
+        className="user-checking chartJS"
+        title="Total With Last Month"
+      >
+        <ChartComponent value={BillCtx.bills}/>
+      </ContainerChart>
+    </div>
+  );
+};
 
-
-const ChartValue = () =>{ 
-    const [bills, setBill] = useState([]);
-    useEffect(() =>{
-        fetch('http://localhost:3001/bill/year').then(response => response.json())
-        .then(data =>{
-            setBill(data);
-        })
-        .catch(err => console.log(err));
-    }, []);
-    return( 
-        <div className='box-customer'>
-            <ContainerChart className='user-checking chartJS' title='Total With Last Month'>
-                <ChartComponent 
-                dataBill={bills}
-                />
-            </ContainerChart>
-        </div>
-    )
-}
-
-export default ChartValue;
+export default React.memo(ChartValue);

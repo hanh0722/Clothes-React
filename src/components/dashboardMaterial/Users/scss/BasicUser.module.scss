@@ -1,0 +1,37 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    th{
+        &:nth-child(1){
+            width: 30%;
+        }
+        &:nth-child(2){
+            width: 10%;
+        }
+        &:nth-child(3){
+            width: 40%;
+        }
+        &:nth-child(4){
+            width: 20%;
+        }
+    }
+    padding-top: 20px;
+    td{
+        font-size: 14px;
+    }
+    text-align: center;
+}
+.data-config{
+    overflow-y: scroll;
+    width: 100%;
+    &::-webkit-scrollbar{
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track{
+        background: #fff;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: #ddd;
+    }
+    height: 100vh;
+}

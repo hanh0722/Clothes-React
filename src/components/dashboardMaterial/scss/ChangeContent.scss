@@ -18,10 +18,13 @@
 }
 .setting-blog{
     padding-top: 25px;
+    a{
+        color: black;
+    }
 }
 
 .container-admin{
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 .right-side-admin{
     line-height: 40px;
